@@ -18,6 +18,25 @@ AI Engineer learning workspace. Each directory maps to a phase in `ai-engineer-s
 | `eval-observability/` | 6 (Week 12) | LangSmith, LLM-as-judge, Ragas |
 | `cloud/` | 7 (Weeks 13-14) | Docker, AWS, Modal, Railway, GitHub Actions |
 
+## Dev Commands
+
+Each phase dir is an independent `uv` project. Standard workflow:
+
+```bash
+# Scaffold new phase
+uv init <phase-dir>
+cd <phase-dir>
+uv add --dev pytest ruff mypy
+
+# Daily dev
+uv run pytest                    # run all tests
+uv run pytest tests/test_foo.py  # run single test file
+uv run pytest -k "test_name"     # run single test by name
+uv run ruff check .              # lint
+uv run ruff format .             # format
+uv run mypy src/                 # type check (goal: --strict clean)
+```
+
 ## Conventions (from study map)
 
 - Use `uv` for Python package management (not pip/poetry)
