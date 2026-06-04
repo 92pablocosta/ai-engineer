@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-AI Engineer learning workspace. Each directory maps to a phase in `ai-engineer-study-map.md`. All dirs are currently empty stubs — code gets added as phases are completed.
+AI Engineer learning workspace. Each directory maps to a phase in `ai-engineer-study-map.md`. Code is added as phases are completed.
 
 ## Directory → Phase Mapping
 
@@ -17,6 +17,7 @@ AI Engineer learning workspace. Each directory maps to a phase in `ai-engineer-s
 | `mpc/` | 5 (Week 11) | Model Context Protocol |
 | `eval-observability/` | 6 (Week 12) | LangSmith, LLM-as-judge, Ragas |
 | `cloud/` | 7 (Weeks 13-14) | Docker, AWS, Modal, Railway, GitHub Actions |
+| `agents/` | — | Standalone agent experiments (cross-phase) |
 
 ## Dev Commands
 
@@ -57,4 +58,5 @@ Python-first. Likely dependencies per phase:
 
 ## Study Map Reference
 
-`ai-engineer-study-map.md` — full roadmap with resources, domain checks, and anti-patterns per phase. Read this before scaffolding any new phase directory.
+- `ai-engineer-study-map.md` — full roadmap with resources, domain checks, and anti-patterns per phase. Read before scaffolding any new phase directory.
+- `roadmaps/` — supplementary market research and 2026 roadmap PDFs/markdown.
