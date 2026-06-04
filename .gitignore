@@ -58,3 +58,24 @@ logs/
 # Local data / vector stores
 data/
 *.faiss
+*.pkl
+chroma_db/
+chromadb/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# LangChain cache
+.langchain/
+
+# MCP / Node (Phase 5)
+node_modules/
+
+# Temp
+tmp/
+temp/
+
+# other
+roadmaps/
