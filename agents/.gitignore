@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# uv / venv
+.venv/
+.uv/
+
+# Env files (never commit secrets)
+.env
+*.env.local
+
+# LangGraph checkpoints (local dev DBs)
+*.db
+*.sqlite
+*.sqlite3
+checkpoints.db
+
+# Data / corpora (too large for git)
+data/corpus/
+data/*.pdf
+data/*.docx
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Langfuse / observability local state
+.langfuse/
