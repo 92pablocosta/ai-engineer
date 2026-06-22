@@ -31,6 +31,19 @@ htmlcov/
 .env.*
 !.env.example
 
+# Credentials / keys (AWS, SSH, certs — Phase 5)
+.aws/
+credentials
+*.pem
+*.key
+*.crt
+*.p12
+id_rsa
+id_rsa.pub
+*_rsa
+secrets.*
+*.secret
+
 # Jupyter
 .ipynb_checkpoints/
 
