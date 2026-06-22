@@ -1,46 +1,60 @@
-# AI Engineer
+# AI Engineer — Learning Journey
 
-Learning workspace for becoming a production AI Engineer. Built around a 14-week study map (~210h) covering the full stack: Python → LLM APIs → RAG → Agents → MCP → Evals → Cloud.
+My path from LLM integrator to production AI/backend engineer. This repo is a **learning log, not a portfolio of finished products** — it grows only with work I actually build, by hand.
 
-## Structure
+## Why this repo looks the way it does
 
-Each directory is an independent `uv` project for one phase:
+One rule drives everything here: **during learning, AI is off-limits.** I write the code by hand, hit the wall, read the traceback myself, and only *then* check against AI.
 
-| Dir | Phase | Focus |
-|-----|-------|-------|
-| `python/` | 1 (Weeks 1-3) | Advanced Python, FastAPI, async, Postgres |
-| `llm-api/` | 2 (Weeks 4-5) | OpenAI + Anthropic SDKs, prompt engineering |
-| `rag/` | 3 (Weeks 6-8) | Embeddings, pgvector/Pinecone, hybrid search, evals |
-| `orchestration/` | 4 (Weeks 9-10) | LangChain LCEL, LangGraph |
-| `mpc/` | 5 (Week 11) | Model Context Protocol |
-| `eval-observability/` | 6 (Week 12) | LangSmith, LLM-as-judge, Ragas |
-| `cloud/` | 7 (Weeks 13-14) | Docker, AWS Lambda, Modal, GitHub Actions |
-| `agents/` | — | Standalone agent experiments |
+I already have the opposite experience — a portfolio built fast with AI, and near-zero retention. So this time the goal is depth I can **defend live in an interview**: "how would you do this without LangChain?", "cosine or dot product, and why?", "what is HNSW?". AI stays my production tool; it just steps aside while I learn the fundamentals.
 
-## Stack
+That means: **no empty scaffolding, no placeholder projects.** A phase directory appears here only when I start that phase. If a folder exists, there's real work in it.
 
-- **Runtime**: Python 3.12+, `uv` for package management
-- **Quality**: Ruff (lint/format), mypy (`--strict` goal), pytest
-- **LLMs**: OpenAI, Anthropic Claude
-- **Vector**: pgvector, Pinecone, FAISS
-- **Orchestration**: LangChain, LangGraph
-- **Deploy**: Docker, AWS, Modal
+## Roadmap & progress
 
-## Dev workflow
+Foundation is identical regardless of the final track. Phase folders sit at the repo root.
+
+| Phase | Folder | Focus | Deliverable | Status |
+|-------|--------|-------|-------------|--------|
+| 0 | `00-python/` | OOP, type hints (`mypy`), `async`/`await` | OOP CLI script that calls the OpenAI API (intent classifier), hand-typed | Not started |
+| 1 | `01-pytest/` | `pytest` from zero: fixtures, parametrize, API mocking | Green suite over the phase-0 script, incl. LLM mock | Not started |
+| 2 | `02-fastapi/` | async routes, Pydantic v2, DI, middleware, errors | LLM endpoint (e.g. `/chat` streaming), tested + dockerized | Not started |
+| 3 | `03-rag/` | embeddings + cosine in numpy → pgvector (IVFFlat/HNSW) → LangChain → LlamaIndex tour | RAG over my own docs, pgvector retrieval, served via FastAPI | Not started |
+| 4 | `04-evals-observability/` | Langfuse (self-hosted), ragas (faithfulness, context precision) | Langfuse dashboard + ragas report of a measured improvement | Not started |
+| 5 | `05-docker-aws/` | multi-stage Dockerfile/compose by hand; S3, IAM, EC2 | A project above deployed via my own Docker + a real S3 bucket | Not started |
+
+After the foundation, the focus is the **job track**: remote/international roles (USD). That means LLM system design, practical DSA, and take-home polish — folded into the foundation work rather than a separate directory.
+
+Full reasoning, baselines, and per-phase detail: [`ai-engineer-roadmap.md`](ai-engineer-roadmap.md).
+
+## Stack & conventions
+
+- **Runtime**: Python 3.12+, [`uv`](https://github.com/astral-sh/uv) for package management (not pip/poetry)
+- **Quality**: Ruff (lint + format), mypy (`--strict` goal), pytest
+- **Style**: 100% type hints, Pydantic v2 for data models, structured logging over `print()`
+- **LLMs**: Anthropic Claude, OpenAI
+- **Data/vector**: PostgreSQL + pgvector
+- **Deploy**: Docker, AWS (S3/IAM/EC2)
+
+Each phase folder is an independent `uv` project:
 
 ```bash
-# Scaffold a new phase
-uv init <phase-dir>
-cd <phase-dir>
+uv init foundation/NN-name
+cd foundation/NN-name
 uv add --dev pytest ruff mypy
 
-# Run tests / lint / types
-uv run pytest
-uv run pytest tests/test_foo.py -k "test_name"
-uv run ruff check . && uv run ruff format .
-uv run mypy src/
+uv run pytest          # tests
+uv run ruff check .    # lint
+uv run ruff format .   # format
+uv run mypy src/       # types
 ```
 
-## Roadmap
+## Layout
 
-Full study map with resources, domain checks, and anti-patterns: [`ai-engineer-study-map.md`](ai-engineer-study-map.md)
+```
+.
+├── ai-engineer-roadmap.md   # source of truth: full roadmap + baselines
+├── roadmaps/                # condensed 2026 market intelligence (target niche)
+├── 00-python/ … 05-docker-aws/   # foundation phases 0–5
+└── _archive/                # earlier work from a previous roadmap
+```
