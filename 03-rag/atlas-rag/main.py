@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI()  # lê a OPENAI_API_KEY do ambiente
+client = OpenAI()
 
 chunks = [
     "Embeddings transformam texto em vetores numéricos que capturam significado, permitindo busca semântica em vez de busca por palavra exata.",
@@ -31,7 +31,10 @@ chunks = [
 
 
 def embed(texts: list[str]) -> np.ndarray:
-    """Manda uma lista de textos pra API, devolve matriz (n_textos, 1536)."""
+    """
+    Manda uma lista de textos pra API, devolve uma matriz (n_textos, 1536).
+    """
+    
     resp = client.embeddings.create(model="text-embedding-3-small", input=texts)
     return np.array([d.embedding for d in resp.data])
 
