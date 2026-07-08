@@ -1,6 +1,8 @@
 # Roadmap AI/Backend Engineer — Plano de Estudos Completo
-**Data:** jun/2026 · **Base:** níveis reais auto-avaliados (não o portfólio)
+**Data:** jun/2026 · **Atualizado:** jul/2026 (correções pesquisadas abaixo) · **Base:** níveis reais auto-avaliados (não o portfólio)
 **Projeto-espinha:** Atlas (um AI knowledge assistant que evolui em todas as fases)
+
+> **Nota de atualização (jul/2026):** 3 pontos deste roadmap ficaram desatualizados ou imprecisos entre jun e jul/2026. Correções aplicadas inline, marcadas com `> ⚠️ ATUALIZADO`. Resumo completo no fim do arquivo.
 
 ---
 
@@ -139,11 +141,13 @@ ai-engineer/
 - **pgvector (cobre dois 0s de uma vez):**
   - extensão, tipo `vector(n)`
   - operadores: `<=>` (cosine), `<->` (L2), `<#>` (inner product)
-  - índices: IVFFlat vs HNSW (quando usar cada, trade-off recall/velocidade)
+  - índices: IVFFlat vs HNSW
+    > ⚠️ **ATUALIZADO:** não é mais um trade-off neutro. HNSW é o default de 2026 — maior recall, menor latência, e pode ser criado com a tabela ainda vazia (importante pra CI/CD e blue/green deploy). IVFFlat só se justifica em cenário bem específico: ingestão acima de ~100k writes/hora, e mesmo aí HNSW costuma competir bem. Trata HNSW como escolha padrão e documenta IVFFlat como exceção, não como alternativa de peso igual.
   - retrieval com SQL puro
 - **Pipeline RAG completo:** ingest → chunk → embed → store → retrieve → augment prompt → generate
 - **Qualidade:** tuning de top-k, metadata filtering, reranking (conceito)
-- **LangChain v1.x:** document loaders, text splitters, vector store integration, retrievers, LCEL básico
+- **LangChain v1.x:** document loaders, text splitters, vector store integration, retrievers
+  > ⚠️ **ATUALIZADO:** LangChain 1.0 (release estável, out/2025) deprecou o padrão LCEL (`prompt | llm | parser`) em favor de `create_agent` + sistema de middleware (human-in-the-loop, summarization, PII redaction). Quem estuda LCEL agora aprende algo que o próprio LangChain está abandonando. Estuda `create_agent`, middleware, e tool calling nativo — não LCEL.
 - **LlamaIndex:** tour rápido (index + query engine) — só pra saber a diferença (nível 1)
 
 **Projeto — Atlas v3 (com conhecimento). Ordem obrigatória:**
@@ -163,8 +167,10 @@ ai-engineer/
 **Conteúdos:**
 - *Por que* avaliar LLM: não-determinismo, regressão silenciosa
 - **Langfuse:** tracing, spans, custo, latência; self-host (na tua VPS, joga a favor do teu Docker)
+  > ⚠️ **ATUALIZADO:** confirmado que Langfuse continua ativo e é padrão de mercado (usado por Canva, integra nativamente com LangChain/LlamaIndex/OTel) — mas desde a v3 o self-host virou stack de 6 containers (Postgres + ClickHouse + Redis + MinIO + web + worker), não só Postgres como antes. Recomendação oficial: mínimo 4GB RAM, 8GB confortável. Antes de comprometer a VPS, decide: v3 completo (production-grade, mais pesado) ou v2 (só Postgres, mais simples, ainda suportado mas não é mais pra onde o projeto está indo). Pro Atlas, v2 provavelmente basta e evita competir por RAM com o resto do teu stack (n8n, Evolution API, Chatwoot já rodando na mesma VPS).
 - **Métricas de RAG:** faithfulness, answer relevancy, context precision/recall
 - **ragas:** setup, montar golden test set, rodar avaliação
+  > ✅ **CONFIRMADO:** ragas segue ativo e é referência de mercado pra métricas de RAG (faithfulness, context precision/recall). Ponto real: é só biblioteca de métricas, sem dashboard/observability própria — por isso a combinação com Langfuse no roadmap (eval offline com ragas + tracing em produção com Langfuse) é a arquitetura certa, não redundância.
 - LLM-as-judge (conceito + armadilhas)
 - Conexão com rubrica multi-eixo (Outlier: instruction following, consistency, quality)
 
@@ -185,6 +191,8 @@ ai-engineer/
 - **docker-compose:** multi-serviço (app + postgres/pgvector), volumes, networks, env
 - Otimização de tamanho de imagem
 - **AWS:** IAM (users/roles/policies), S3 (`boto3`), EC2 (básico), conceito de VPC
+  > ✅ **CONFIRMADO:** IAM/EC2/S3/VPC seguem sendo a base universal pedida em 2026, com ou sem IA — sem mudança aqui.
+  > 💡 **OPCIONAL (decide tu):** vagas que combinam AWS + IA citam cada vez mais **Bedrock** (API gerenciada da AWS pra servir LLMs, tipo Claude/Llama via boto3) — não é treino, é só mais uma forma de *aplicar* LLM em produção, o que já é teu princípio. Não é essencial pra fundação; só relevante se mirar vaga que pede especificamente AWS+IA, ou se quiser um segundo caminho de servir LLM além de chamar OpenAI/Anthropic direto.
 - PaaS vs IaaS — *por que* Railway/Render ≠ cloud primitives
 - Secrets (env vars, conceito de Secrets Manager)
 
@@ -205,6 +213,7 @@ A fundação acima serve aos dois. A diferença é o que tu adiciona no fim.
 **Conteúdos extras:**
 - **LLM system design:** desenhar RAG/agent em produção no quadro — caching, fallback, rate limit, eval gate, multi-tenancy
 - **DSA prático:** ~30–40 Easy/Medium (NeetCode 150 lite). Padrões: hashmap, two pointers, sliding window, BFS/DFS. Não vira competitive programmer — só não trava.
+  > ✅ **CONFIRMADO:** pesquisa de vagas 2026 mostra que DSA pesado (LeetCode medium/hard, rodadas dedicadas) é padrão só em FAANG-tier. Pra empresas mid-size e a maioria das remotas internacionais, o esperado é cobrir ~12-15 padrões centrais com confiança — exatamente a calibração que já está aqui. Sem mudança.
 - **Take-home polish:** entregar projeto completo + README + decision log + testes em 48h. Pequeno e completo > ambicioso e quebrado.
 - **Posicionamento:** mid AI/backend com fundamentos defensáveis (agora tu sustenta o portfólio).
 
@@ -220,3 +229,20 @@ A fundação acima serve aos dois. A diferença é o que tu adiciona no fim.
 ## O que NÃO está na fundação (de propósito)
 - **Pinecone/Qdrant/Weaviate:** pula. pgvector cobre 90% dos casos e tu já roda Postgres. Aprende os gerenciados só se uma vaga pedir.
 - **Fine-tuning / treino de modelo:** não é teu caminho. Foco é *aplicar* LLM, não treinar.
+
+---
+
+## Resumo das correções (pesquisa jul/2026)
+
+| # | Seção | Estava | Correção | Fonte |
+|---|---|---|---|---|
+| 1 | Fase 3 — LangChain | "LCEL básico" | LangChain 1.0 (out/2025) deprecou LCEL → usa `create_agent` + middleware | langchain.com/blog, changelog.langchain.com |
+| 2 | Fase 3 — pgvector | IVFFlat vs HNSW como trade-off neutro | HNSW é o default 2026; IVFFlat só acima de ~100k writes/hora | dbi-services.com, danubedata.ro (mar/2026) |
+| 3 | Fase 4 — Langfuse | "self-host, joga a favor do teu Docker" (implicava simples) | v3 = stack de 6 containers (Postgres+ClickHouse+Redis+MinIO+web+worker), mín. 4GB RAM. v2 (só Postgres) ainda existe e é mais leve — decide antes de comprometer a VPS | langfuse.com/self-hosting, jangwook.net (mai/2026) |
+| — | Fase 4 — ragas | (sem verificação) | Confirmado ativo e é a referência de mercado; combinação com Langfuse é arquitetura certa (métricas offline + tracing em produção), não redundância | futureagi.substack.com, braintrust.dev |
+| — | Fase 5 — AWS | (sem verificação) | Confirmado: IAM/EC2/S3/VPC seguem base correta pra 2026. Adição opcional: Bedrock aparece em vagas que combinam AWS+IA — não essencial, decisão tua | dev.to (mar/2026), interviewkickstart.com, scaler.com |
+| — | Track Emprego — DSA/NeetCode | (sem verificação) | Confirmado: DSA pesado é só padrão FAANG-tier. Mid-size/remoto internacional pede ~12-15 padrões centrais — calibração do roadmap (30-40 Easy/Medium) já está certa | medium.com/@codegrey (jun/2026), namastedev.com |
+
+**Todos os blocos do roadmap agora foram pesquisados e validados ou corrigidos.**
+
+**Resto do documento:** validado contra vagas reais de "AI/Backend Engineer" remoto (FastAPI + Postgres + Docker + auth + RAG aparecem repetidamente) — estrutura de fases, ordem (mão → pgvector → framework), regra "sem IA no aprendizado" e uso do git log como prova seguem corretos, sem necessidade de mudança.
