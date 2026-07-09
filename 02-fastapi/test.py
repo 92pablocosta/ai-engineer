@@ -9,7 +9,7 @@ def list_products(
 ):
     if category is None:
         return {
-            "message": "Listing products from all categories",
+            "message": "No category provided.",
             "limit": limit
         }
 

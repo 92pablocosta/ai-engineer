@@ -1,4 +1,4 @@
-def calculateAverage(numbers=[]) -> int:
+def calculateAverage(numbers=[]) -> str:
     average = sum(numbers) / len(numbers)
     return f'{average:.1f}'
 
@@ -17,5 +17,3 @@ def oddNumbers(numbers=[]) -> list:
         if number % 2 != 0:
             odd_numbers.append(number)
     return odd_numbers
-
-
