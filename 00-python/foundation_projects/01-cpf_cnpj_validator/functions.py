@@ -33,14 +33,14 @@ def checkCpfDigit(cpf: str):
         return False
 
 
-def validateCPF(cpf: str):
+def validateCPF(cpf):
     cpf = cpf.replace(".", "").replace("-", "")
     if len(cpf) != 11:
-        return False, 'Invalid CPF'
-    if cpf.isdigit():
-        return True, 'CPF Válido'
+        return 'Invalid CPF'
+    if cpf.isdigit() and checkCpfDigit(cpf):
+        return "CPF Validated!"
     else:
-        return False, 'CPF inválido'
+        return "Invalid CPF"
 
 
 def validateCNPJ(cnpj: str):
