@@ -1,0 +1,9 @@
+[project]
+name = "02-cpf-cnpj-validator"
+version = "0.1.0"
+description = "Receives a str and validates is it is a valid CPF or CNPJ"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "rich>=15.0.0",
+]
