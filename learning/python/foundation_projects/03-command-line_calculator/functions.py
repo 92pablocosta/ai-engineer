@@ -2,49 +2,32 @@ def expression_isvalid(exp: list) -> bool:
     valid_operators = ['+', '-', '*', '/']
 
     if len(exp) < 3 or len(exp) % 2 == 0:
-        return False, 'Invalid expression.'
+        return False
     
     for index, part in enumerate(exp):
         if index % 2 == 0:
             try:
                 float(part)
             except ValueError:
-                return False, f'"{part}" is not a valid number.'
+                return False
         else:
             if part not in valid_operators:
-                return False, f'"{part}" is not a valid operator.'
+                return False
     
     return True
 
-def add(expression: list) -> float:
-    if len(expression) == 3:
-        n1 = float(expression[0])
-        n2 = float(expression[2])
-        return n1 + n2
-    else:
-        n1 = float(expression[0])
-        n2 = float(expression[2])
-        
-
-def subtract(expression: list) -> float:
-    n1 = float(expression[0])
-    n2 = float(expression[2])
-
-    return n1 - n2
-
-def multiply(expression: list) -> float:
-    n1 = float(expression[0])
-    n2 = float(expression[2])
-
-    return n1 * n2
-
-def divide(expression: list) -> float:
-    n1 = float(expression[0])
-    n2 = float(expression[2])
-
-    try:
-        result = n1 / n2
-    except ZeroDivisionError:
-        return 'Cannot divide by 0.'
-    else:
-        return result
+def calculate_expression(exp: str) -> float:
+    result = float(exp[0])
+    for index, value in enumerate(exp):
+        if value == '+':
+            result = result + float(exp[index + 1])
+        elif value == '-':
+            result = result - float(exp[index + 1])
+        elif value == '*':
+            result = result * float(exp[index + 1])
+        elif value == '/':
+            try:
+                result = result / float(exp[index + 1])
+            except ZeroDivisionError:
+                return 'Division by "0" is not allowed.'
+    return result
