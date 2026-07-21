@@ -9,14 +9,14 @@
 ## Learning Plan
 
 - Continue from `PROGRESS.md`; it records completed lessons and the next lesson.
-- Current path: `01-pytest/`.
+- Current path: `learning/pytest/`.
 - Current exercise code lives in `project1/`.
 - Focus sequence: `assert` and failure reading, `pytest.raises`, `@pytest.mark.parametrize`, fixtures, `tmp_path`, monkeypatch/mocking, async tests with `pytest-asyncio`, then a small AI assistant test project without real API calls.
 
 ## Commands
 
-- From `01-pytest/project1/`: `python -m pytest -q`.
-- From `01-pytest/`: `python -m pytest -q project1`.
+- From `learning/pytest/project1/`: `python -m pytest -q`.
+- From `learning/pytest/`: `python -m pytest -q project1`.
 - If pytest is missing in `project1/`, use a local venv there: `python -m venv .venv`, `source .venv/bin/activate`, `python -m pip install -U pytest`.
 - `project1/` has no `pyproject.toml`; do not assume `uv run` works here.
 

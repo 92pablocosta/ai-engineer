@@ -1,6 +1,6 @@
 # Roadmap AI/Backend Engineer — Plano de Estudos Completo
 **Data:** jun/2026 · **Atualizado:** jul/2026 (correções pesquisadas abaixo) · **Base:** níveis reais auto-avaliados (não o portfólio)
-**Projeto-espinha:** Atlas (um AI knowledge assistant que evolui em todas as fases)
+**Projeto prático:** ainda a definir — o foco atual é dominar os fundamentos antes de escolher algo original.
 
 > **Nota de atualização (jul/2026):** 3 pontos deste roadmap ficaram desatualizados ou imprecisos entre jun e jul/2026. Correções aplicadas inline, marcadas com `> ⚠️ ATUALIZADO`. Resumo completo no fim do arquivo.
 
@@ -16,16 +16,13 @@ Teu portfólio cheio com retenção zero é a prova do que acontece quando ignor
 
 ```
 ai-engineer/
-├── README.md            ← conta a história: o que é, como evoluiu, o que cada fase prova
-├── roadmap.md           ← este arquivo
-└── atlas/               ← o projeto-espinha (cresce fase a fase)
-    ├── src/
-    ├── tests/
-    ├── scripts/
-    └── README.md        ← arquitetura + decisões
+├── README.md            ← conta a história e o progresso real
+├── docs/roadmap.md      ← este arquivo
+├── learning/            ← exercícios pequenos organizados por assunto
+└── archive/             ← experimentos anteriores, fora do plano atual
 ```
 
-**O diferencial não é o código final — é o histórico de commits.** Commita por fase, com mensagens claras. Recrutador abre o `git log` e vê CLI → testado → API → RAG → avaliado → deployado. Essa progressão prova que tu entende cada camada. É o que vibe coder nenhum consegue forjar.
+**O diferencial não é um código final — é o histórico de commits.** Commita por marco de aprendizagem, com mensagens claras. Recrutador abre o `git log` e vê fundamentos → testes → API → RAG → evals → deploy. Essa progressão prova que tu entende cada camada.
 
 ---
 
@@ -71,12 +68,11 @@ ai-engineer/
 - **Erros & recursos:** `try/except/finally`, exceptions customizadas, context managers (`with`, `__enter__`/`__exit__`)
 - **Ambiente:** módulos, packages, imports, `if __name__ == "__main__"`, `venv`, `pip`/`uv`
 
-**Projeto — Atlas v0 (CLI, Python puro):**
-- `LLMClient` (classe): wrapper async pra OpenAI/Anthropic, com retry e type hints
-- `Message` (dataclass) + `Conversation` (classe): histórico, truncamento por token
-- `Assistant` (classe): orquestra `LLMClient` + `Conversation`
-- `main.py`: loop de CLI — input → `assistant.ask()` → resposta
-- **Entrega:** `python -m atlas` → chat multi-turn funcional no terminal, **tudo digitado por ti**
+**Prática da fase (sem projeto definido):**
+- Implementa exercícios pequenos para cada conceito, incluindo classes, `@dataclass`, herança, exceções e type hints.
+- Cria um programa de CLI simples em um domínio teu, sem depender de API de LLM.
+- Só depois de dominar async, faz um exercício isolado de I/O assíncrono com retry.
+- **Entrega:** código pequeno, executável e explicado por ti, com cada conceito praticado de propósito.
 
 **Regra da IA:** zero. Lê o traceback tu mesmo.
 
@@ -94,10 +90,10 @@ ai-engineer/
 - **Coverage:** `pytest-cov`
 - Padrão Arrange-Act-Assert; testar happy path + edge cases + erros
 
-**Projeto — Atlas v1 (testado):**
-- Mockar `LLMClient` (sem chamar API real)
-- Testar lógica de truncamento do `Conversation`, retry, tratamento de erro
-- **Entrega:** `pytest` verde, coverage > 80% no core
+**Prática da fase:**
+- Testa os programas escritos na fase 0: happy path, bordas e exceções.
+- Cria um exemplo isolado de mock para uma dependência externa, sem chamada real de API.
+- **Entrega:** `pytest` verde e cobertura acima de 80% no código estudado.
 
 **Regra da IA:** escreve os testes na mão. Eles são o que prova que tu entende teu próprio código.
 
@@ -120,11 +116,10 @@ ai-engineer/
 - Docs automáticas (OpenAPI/Swagger)
 - Testar com `TestClient` / `httpx`
 
-**Projeto — Atlas v2 (API):**
-- `POST /chat` com request/response Pydantic + streaming
-- `Assistant` injetado via `Depends`, auth por API key, exception handler, CORS
-- Testes de endpoint com `TestClient`
-- **Entrega:** `uvicorn` rodando, Swagger funcional, suíte verde
+**Prática da fase:**
+- Cria uma API pequena, em um domínio simples, com modelos Pydantic, `Depends`, tratamento de erro e testes.
+- Pratica streaming em um endpoint separado; não precisa conectar um LLM para aprender o protocolo.
+- **Entrega:** `uvicorn` rodando, Swagger funcional e suíte verde.
 
 **Regra da IA:** reconstrói linha por linha algo que tu antes fez com IA. Sente a diferença.
 
@@ -150,12 +145,12 @@ ai-engineer/
   > ⚠️ **ATUALIZADO:** LangChain 1.0 (release estável, out/2025) deprecou o padrão LCEL (`prompt | llm | parser`) em favor de `create_agent` + sistema de middleware (human-in-the-loop, summarization, PII redaction). Quem estuda LCEL agora aprende algo que o próprio LangChain está abandonando. Estuda `create_agent`, middleware, e tool calling nativo — não LCEL.
 - **LlamaIndex:** tour rápido (index + query engine) — só pra saber a diferença (nível 1)
 
-**Projeto — Atlas v3 (com conhecimento). Ordem obrigatória:**
+**Prática da fase. Ordem obrigatória:**
 1. **Na mão:** `/ingest` que chunka + embeda + guarda em store numpy in-memory; retrieval por cosine top-k
 2. **pgvector:** trocar o store in-memory por tabela Postgres com pgvector
 3. **LangChain (opcional):** refatorar o retrieval com retriever do framework — agora tu *vê* o que ele abstrai
-4. `/chat` passa a fazer retrieval + augment + generate
-- **Entrega:** Atlas responde perguntas sobre **teus próprios docs** (tuas notas de estudo, ou docs de um cliente)
+4. Integra retrieval e geração em um exercício sobre **teus próprios documentos** (notas de estudo ou docs de cliente autorizados)
+- **Entrega:** um protótipo de RAG explicado e medido por ti.
 
 **Regra da IA:** NÃO começa pelo framework. Mão → pgvector → framework. Entrevista abre o capô.
 
@@ -167,17 +162,17 @@ ai-engineer/
 **Conteúdos:**
 - *Por que* avaliar LLM: não-determinismo, regressão silenciosa
 - **Langfuse:** tracing, spans, custo, latência; self-host (na tua VPS, joga a favor do teu Docker)
-  > ⚠️ **ATUALIZADO:** confirmado que Langfuse continua ativo e é padrão de mercado (usado por Canva, integra nativamente com LangChain/LlamaIndex/OTel) — mas desde a v3 o self-host virou stack de 6 containers (Postgres + ClickHouse + Redis + MinIO + web + worker), não só Postgres como antes. Recomendação oficial: mínimo 4GB RAM, 8GB confortável. Antes de comprometer a VPS, decide: v3 completo (production-grade, mais pesado) ou v2 (só Postgres, mais simples, ainda suportado mas não é mais pra onde o projeto está indo). Pro Atlas, v2 provavelmente basta e evita competir por RAM com o resto do teu stack (n8n, Evolution API, Chatwoot já rodando na mesma VPS).
+  > ⚠️ **ATUALIZADO:** confirmado que Langfuse continua ativo e é padrão de mercado (usado por Canva, integra nativamente com LangChain/LlamaIndex/OTel) — mas desde a v3 o self-host virou stack de 6 containers (Postgres + ClickHouse + Redis + MinIO + web + worker), não só Postgres como antes. Recomendação oficial: mínimo 4GB RAM, 8GB confortável. Antes de comprometer a VPS, decide: v3 completo (production-grade, mais pesado) ou v2 (só Postgres, mais simples, ainda suportado mas não é mais pra onde o projeto está indo). Para um primeiro exercício, v2 provavelmente basta e evita competir por RAM com o resto do teu stack (n8n, Evolution API, Chatwoot já rodando na mesma VPS).
 - **Métricas de RAG:** faithfulness, answer relevancy, context precision/recall
 - **ragas:** setup, montar golden test set, rodar avaliação
   > ✅ **CONFIRMADO:** ragas segue ativo e é referência de mercado pra métricas de RAG (faithfulness, context precision/recall). Ponto real: é só biblioteca de métricas, sem dashboard/observability própria — por isso a combinação com Langfuse no roadmap (eval offline com ragas + tracing em produção com Langfuse) é a arquitetura certa, não redundância.
 - LLM-as-judge (conceito + armadilhas)
 - Conexão com rubrica multi-eixo (Outlier: instruction following, consistency, quality)
 
-**Projeto — Atlas v4 (observável e avaliado):**
-- Langfuse instrumentando `LLMClient` + retrieval
-- `scripts/eval.py`: test set + ragas (faithfulness, context precision)
-- **Entrega:** dashboard Langfuse + relatório de eval versionado no repo (mede uma melhoria que tu fez)
+**Prática da fase:**
+- Instrumenta um pipeline de LLM ou RAG feito por ti e cria um test set pequeno.
+- `scripts/eval.py`: test set + ragas (faithfulness, context precision).
+- **Entrega:** tracing e relatório de eval versionado, medindo uma melhoria concreta.
 
 **Regra da IA:** medir output > "olhar e achar bonito". É o diferenciador citado nos take-homes da OpenAI.
 
@@ -196,10 +191,10 @@ ai-engineer/
 - PaaS vs IaaS — *por que* Railway/Render ≠ cloud primitives
 - Secrets (env vars, conceito de Secrets Manager)
 
-**Projeto — Atlas v5 (deployado):**
-- Dockerfile multi-stage + compose (atlas + postgres/pgvector + healthcheck)
-- Deploy (VPS ou cloud) + S3 pra armazenar docs ingeridos
-- **Entrega:** Atlas no ar com URL pública + README com diagrama de arquitetura
+**Prática da fase:**
+- Dockerfile multi-stage + compose para um serviço próprio e Postgres/pgvector, com healthcheck.
+- Deploy (VPS ou cloud) + S3 para armazenar arquivos de teste.
+- **Entrega:** serviço público reproduzível e README com diagrama de arquitetura.
 
 **Regra da IA:** escreve o Dockerfile e o compose do zero. Sai da muleta.
 
@@ -220,7 +215,7 @@ A fundação acima serve aos dois. A diferença é o que tu adiciona no fim.
 ## → Track BUILDER (freela/agência/SaaS)
 **Conteúdos extras:**
 - Deployment profundo: CI/CD (GitHub Actions), monitoring, multi-tenant, billing real (fechar VishPath/readinghands)
-- Produtizar a orquestração: Atlas/DentBot viram template replicável
+- Produtizar a orquestração: transformar um projeto original validado em template replicável
 - **Posicionamento:** AI automation specialist que entrega rápido. Mercado não proíbe IA — premia velocidade.
 - **Vantagem:** tu já fatura nisso. Risco menor, retorno mais rápido.
 

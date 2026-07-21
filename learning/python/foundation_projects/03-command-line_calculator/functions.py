@@ -1,4 +1,4 @@
-def expression_isvalid(exp: list) -> tuple[bool, str]:
+def expression_isvalid(exp: list) -> bool:
     valid_operators = ['+', '-', '*', '/']
 
     if len(exp) < 3 or len(exp) % 2 == 0:
@@ -14,13 +14,17 @@ def expression_isvalid(exp: list) -> tuple[bool, str]:
             if part not in valid_operators:
                 return False, f'"{part}" is not a valid operator.'
     
-    return True, ''
+    return True
 
 def add(expression: list) -> float:
-    n1 = float(expression[0])
-    n2 = float(expression[2])
-
-    return n1 + n2
+    if len(expression) == 3:
+        n1 = float(expression[0])
+        n2 = float(expression[2])
+        return n1 + n2
+    else:
+        n1 = float(expression[0])
+        n2 = float(expression[2])
+        
 
 def subtract(expression: list) -> float:
     n1 = float(expression[0])
