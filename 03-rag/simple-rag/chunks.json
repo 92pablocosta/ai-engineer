@@ -1,0 +1,5 @@
+[
+  "Python is a high-level programming language.\nPython supports object-oriented programming.\nPython has automatic memory management.",
+  "Docker creates isolated containers.\nContainers package applications with their dependencies.\nDocker images are immutable.",
+  "REST APIs use HTTP methods.\nGET retrieves data.\nPOST creates resources.\nPUT updates resources.\nDELETE removes resources."
+]

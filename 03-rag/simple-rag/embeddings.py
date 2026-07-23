@@ -1,6 +1,8 @@
 from openai import OpenAI
+from dotenv import load_dotenv
 
-client = OpenAI()   
+load_dotenv()
+client = OpenAI() 
 
 # text -> embedding
 def get_embedding(text: str) -> list[float]:
