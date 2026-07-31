@@ -33,3 +33,5 @@ cat.speak()
 animals = [Dog(), Cat(), Cow()]
 for animal in animals:
     animal.speak()
+
+print(Cat.mro())
