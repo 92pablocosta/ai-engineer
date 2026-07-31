@@ -3,8 +3,11 @@ class Temperature:
         self.celsius = celsius
 
     def is_freezing(self):
-        pass  # TODO: return whether celsius is at or below zero.
+        if self.celsius <= 0:
+            return True
+        
 
 
 temperature = Temperature(0)
-# TODO: print the query result and celsius.
+print(temperature.is_freezing())
+print(temperature.celsius)

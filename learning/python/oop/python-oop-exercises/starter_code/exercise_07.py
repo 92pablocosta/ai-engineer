@@ -3,11 +3,13 @@ class Wallet:
         self.balance = balance
 
     def deposit(self, amount):
-        pass
+        self.balance += amount
 
     def get_balance(self):
-        pass
+        return f'${self.balance}'
 
 
 wallet = Wallet(10)
 # TODO: deposit 25 and print the balance.
+wallet.deposit(25)
+print(wallet.get_balance())

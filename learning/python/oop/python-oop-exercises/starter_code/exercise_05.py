@@ -3,11 +3,15 @@ class Counter:
         self.value = 0
 
     def increment(self):
-        pass  # TODO: increase value by one.
+        self.value += 1
 
     def reset(self):
-        pass  # TODO: set value back to zero.
+        self.value = 0
 
 
 counter = Counter()
-# TODO: call increment twice, print its return value, value, then reset value.
+counter.increment()
+print(counter.increment())
+print(counter.value)
+counter.reset()
+print(counter.value)
