@@ -10,6 +10,5 @@ class Wallet:
 
 
 wallet = Wallet(10)
-# TODO: deposit 25 and print the balance.
 wallet.deposit(25)
 print(wallet.get_balance())
