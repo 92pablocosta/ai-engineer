@@ -1,7 +1,12 @@
 class Book:
     pass
 
+book1 = Book()
+book1.title = "Dune"
+book1.author = "Frank Herberth"
+book2 = Book()
+book2.title = "Kindred"
+book2.author = "Octavia E. Butler"
 
-first_book = Book()
-second_book = Book()
-# TODO: assign title and author attributes, then print both titles.
+print(book1.title)
+print(book2.title)

@@ -1,9 +1,12 @@
 class Car:
     def __init__(self, brand):
-        # TODO: store brand and initialize mileage.
-        pass
-
+        self.brand = brand
+        self.mileage = 0
 
 toyota = Car("Toyota")
 honda = Car("Honda")
-# TODO: update toyota mileage and print both cars.
+
+toyota.mileage = 120
+
+print(toyota.mileage)
+print(honda.mileage)
