@@ -4,7 +4,7 @@ class Counter:
 
     def increment(self):
         self.value += 1
-
+ 
     def reset(self):
         self.value = 0
 
