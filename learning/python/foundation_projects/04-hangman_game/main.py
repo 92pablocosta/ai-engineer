@@ -32,3 +32,4 @@ while True:
                 hangman[index] = guess
 
     print(" ".join(hangman))
+
