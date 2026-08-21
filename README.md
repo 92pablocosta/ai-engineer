@@ -4,6 +4,8 @@ Public record of my path toward production AI/Backend Engineering. This reposito
 
 **The differentiator is the commit history, not a finished app.** Commits track learning milestones with clear messages, so the `git log` itself shows the progression: Python fundamentals → tests → API → RAG → evals → deployment.
 
+---
+
 ## Structure
 
 ```text
