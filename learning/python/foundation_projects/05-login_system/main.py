@@ -41,7 +41,8 @@ def load_users():
                 username, password = line.split(":", 1)
                 users[username] = password
     except FileNotFoundError:
-        pass
+        with open("users.txt", "w"):
+            pass
 
     return users
 
@@ -49,25 +50,59 @@ def load_users():
 def login_user():
     users = load_users()
 
-    username = input("Enter you username: ".strip())
+    username = input("Enter your username: ").strip()
     password = input("Enter your password: ").strip()
 
     if username in users and users[username] == password:
         print(f"Welcome, {username}")
+        return True 
     else:
         print("ERROR: Invalid username or password")
+        return False
 
 
 def list_users():
-    pass
+    users = load_users()
+
+    if not users:
+        print("No users registered.")
+        return
+
+    print("Registered users:")
+
+    for username in users:
+        print(f"- {username}")
 
 
- # Main Program
-choice = input("1. Login\n2. Register\n>").strip()
+# Main Program
 
-if choice == "1":
-    login_user()
-elif choice == "2":
-    register_user()
-else:
-    print("Invalid Option")
+LOGIN_MAX_TRIES = 3
+login_tries = 0 
+while True:
+    choice = input(
+        "1. Login\n"
+        "2. Register\n"
+        "3. List users\n"
+        "4. Exit\n"
+        "> "
+    ).strip()
+
+    if choice == "1":
+        if login_tries >= LOGIN_MAX_TRIES:
+            print("Max login attempts reached.")
+        else:
+            login_success = login_user()
+
+            if not login_success:
+
+                login_tries += 1
+                print(f"Login tries: {login_tries}")
+    elif choice == "2":
+        register_user()
+    elif choice == "3":
+        list_users()
+    elif choice == "4":
+        print("See you later mate!")
+        break
+    else:
+        print("Invalid Option")
