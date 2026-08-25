@@ -1,5 +1,6 @@
-username = "pablo"
-password = "123"
+users = {
+    "pablo": "123",
+    "jose": "123",
+}
 
-with open("test.txt", "a") as file:
-    file.write(f"{username}:{password}")
+print(users['pablo'])

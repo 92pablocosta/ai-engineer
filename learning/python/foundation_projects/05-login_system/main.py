@@ -2,14 +2,20 @@ print("=" * 20)
 print("LOGIN SYSTEM")
 print("=" * 20)
 
-choice = input("1. Login\n2. Register\n>").strip()
 
 def save_user(username, password):
     with open("users.txt", "a") as file:
         file.write(f"{username}:{password}\n")
 
+
 def register_user():
     username = input("Enter a username: ").strip()
+    users = load_users()
+
+    if username in users:
+        print(f"ERROR: Username '{username}' already exists.")
+        return
+    
     password = input("Enter a password: ").strip()
 
     if not username or not password:
@@ -18,7 +24,7 @@ def register_user():
     
     save_user(username, password)
 
-    print(f"User '{username}' is ready to be registered.")
+    print(f"User '{username}' registered successfully.")
 
 
 def load_users():
@@ -40,9 +46,27 @@ def load_users():
     return users
 
 
+def login_user():
+    users = load_users()
+
+    username = input("Enter you username: ".strip())
+    password = input("Enter your password: ").strip()
+
+    if username in users and users[username] == password:
+        print(f"Welcome, {username}")
+    else:
+        print("ERROR: Invalid username or password")
+
+
+def list_users():
+    pass
+
+
+ # Main Program
+choice = input("1. Login\n2. Register\n>").strip()
 
 if choice == "1":
-    print("Login selected")
+    login_user()
 elif choice == "2":
     register_user()
 else:
