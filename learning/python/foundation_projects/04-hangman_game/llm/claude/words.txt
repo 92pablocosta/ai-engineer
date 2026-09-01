@@ -1,4 +1,0 @@
-# One category per line:  name: word, word, word
-animals: penguin, squirrel, otter, giraffe, hedgehog, flamingo
-food: pickle, banana, waffle, noodle, taco, popcorn, marshmallow
-programming: python, variable, function, module, iterator, decorator
